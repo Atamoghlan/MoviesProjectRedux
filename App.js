@@ -49,19 +49,24 @@ export default class App extends Component {
     //console.log('handledChangedText')
   }
   componentDidMount = async() => {
-    try{
-      const response = await fetch(url + this.state.userInput)
+   dispatch(this.fetchUrl(this.url, this.initialInput))
+  }
+
+  fetchUrl = async (url, text) => {
+    try
+    {
+      const response = await fetch(url + text)
       const data = await response.json()
-      this.setState({ 
-        data
-      })
-     //console.log(this.state.data)
+      dispatch(searchMovie(data))
     }
-    catch(e){
+    catch(e)
+    {
      console.log("URL is wrong")
     }
+  }
 
-  this.componentDidUpdate = async() => {
+
+  componentDidUpdate = async() => {
       try{
         const response = await fetch(this.searchUrl)
         const data = await response.json()
@@ -73,7 +78,6 @@ export default class App extends Component {
       }
 
     }
-  }
   render (){
     const {data}=this.state
     let icon = require("./images/popcorn.jpg");
