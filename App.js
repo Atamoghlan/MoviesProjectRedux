@@ -2,20 +2,22 @@ import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet, TextInput ,Image, Text, TouchableOpacity} from 'react-native';
 import {CheckModal} from './components/CheckModal';
 import { SearchMovie } from "./components/SearchMovie";
+import { searchMovie, favouriteList, fetchUrl } from "./Redux/actions";
+import { connect } from "react-redux";
 
-const url = 'http://api.tvmaze.com/search/shows?q=' 
-
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: [],
-      userInput: "super",
       value: "Search movie",
       modalWindow: false ,
       changedData: []
     }
+    
   }
+  url = 'http://api.tvmaze.com/search/shows?q=' 
+  myDefaultSearch = 'super'
+ 
   inputData = [];
   searchUrl = '';
   searchText = ''
@@ -37,49 +39,37 @@ export default class App extends Component {
   }
 
   findMovie = () => {
-    //console.log('findmovie')
-    this.setState(prevState => ({data: prevState.data = this.inputData}));
-    
+    this.props.goToFetch(this.url, this.searchText)
   } 
   
   handledChangedText = (newText) =>{
     this.searchText = newText
-    this.searchUrl = url + newText
+    this.searchUrl = this.url + newText
     this.componentDidUpdate()
     //console.log('handledChangedText')
   }
-  componentDidMount = async() => {
-   dispatch(this.fetchUrl(this.url, this.initialInput))
+  componentDidMount = () => {
+    console.log('my url=', this.url, 'my search=', this.myDefaultSearch)
+    this.props.goToFetch(this.url, this.myDefaultSearch)
   }
 
-  fetchUrl = async (url, text) => {
-    try
-    {
-      const response = await fetch(url + text)
-      const data = await response.json()
-      dispatch(searchMovie(data))
-    }
-    catch(e)
-    {
-     console.log("URL is wrong")
-    }
-  }
+  
 
 
   componentDidUpdate = async() => {
-      try{
-        const response = await fetch(this.searchUrl)
-        const data = await response.json()
-        this.inputData = data
-        // this.setState(prevState => ({data: prevState.data = data}))
-      }
-      catch(e){
-        console.log('URL is wrong')
-      }
+      // try{
+      //   const response = await fetch(this.searchUrl)
+      //   const data = await response.json()
+      //   this.inputData = data
+      //   // this.setState(prevState => ({data: prevState.data = data}))
+      // }
+      // catch(e){
+      //   console.log('URL is wrong')
+      // }
 
     }
   render (){
-    const {data}=this.state
+    //const {data} = this.props.data
     let icon = require("./images/popcorn.jpg");
     let name = '';
     let description = '';
@@ -94,7 +84,7 @@ export default class App extends Component {
           {/* {console.log(this.state.data)}, */}
           <View style={{flexWrap: 'wrap', flexDirection: 'row', backgroundColor: "black"}}>
         
-         {data.map((item,index)=> {
+         {this.props.data.map((item,index)=> {
              icon = item.show.image?{uri:item.show.image.medium}: require("./images/popcorn.jpg")
              name = item?.show?.name;
              description= item?.show?.summary;
@@ -117,6 +107,21 @@ export default class App extends Component {
     )
   }
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+      goToFetch: (url, search) =>  dispatch(fetchUrl(dispatch, url, search)),
+      func: () => dispatch(ClearList()), 
+      dispatch
+
+  }
+}
+const mapStateToProps = state => {
+  return {
+    data: state.ReducerForSearch.data
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
 const styles=StyleSheet.create({
   container: {
     marginTop: 30

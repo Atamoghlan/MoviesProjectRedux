@@ -1,5 +1,5 @@
 export const initialState = {
-    movieList: [],
+    data: [],
 }
 
 export const ReducerForFavourite = (state = initialState, action) => {
@@ -7,7 +7,7 @@ export const ReducerForFavourite = (state = initialState, action) => {
         
         case 'Add_to_favourite_List':
             return {
-                userList: [...state.userList, action.payload]
+                data: [...state, action.payload.data]
             }
     default: 
     return state;

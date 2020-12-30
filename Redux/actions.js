@@ -6,7 +6,7 @@ export const searchMovie = (data) => {
     return ({
         type: 'Search_Movie',
         payload: {
-            data: []
+            data: data
         }
     })
 }
@@ -22,4 +22,24 @@ export const favouriteList = (icon, movieName, description) => {
 
         }
     })
+}
+
+
+
+export const fetchUrl = (dispatch, url, text) => {
+    console.log('from fetch url=',url, text)
+    return async() => {
+    try
+    {
+        url1=url+text
+      console.log('before fetch last call', url1)
+      const response = await fetch(url1)
+      const data = await response.json()
+      dispatch(searchMovie(data))
+    }
+    catch(e)
+    {
+     console.log("URL is wrong")
+    }
+  }
 }

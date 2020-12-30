@@ -1,13 +1,12 @@
 export const initialState = {
-    movieList: [],
+    data: [],
 }
 
 export const ReducerForSearch = (state = initialState, action) => {
     switch(action.type) {
         case 'Search_Movie': 
         return {
-            ...state,
-            movieList: action.payload.data
+            data: action.payload.data
         }
     default: 
     return state;
