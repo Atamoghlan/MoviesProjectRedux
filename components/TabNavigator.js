@@ -1,7 +1,8 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import myApp from "../App";
+import MainMenu from "../screens.js/MainMenu";
 import  favList from "./FavouriteList";
+import myApp from "../screens.js/MainMenu";
 
 
 const MoviesTab = createBottomTabNavigator();

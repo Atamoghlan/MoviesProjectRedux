@@ -11,10 +11,17 @@ class FavouriteList extends Component {
             <View>
                 <ScrollView>
                         {list.map((movie) => (
-                            <View  key={++movieId}>
-                                <Text>{movie.name}</Text>
+                            <View
+                            key={++movieId}
+                            style={{flexWrap: 'wrap', flexDirection: "row", justifyContent: 'center', 
+                            backgroundColor: "black"}}>
+                            <View>
+                                <Text
+                                style={{width: 250, height: 45, fontSize: 30, color: 'white', marginTop: 15}}>{movie.name}</Text>
                                 <Image
+                                style={{width: 250, height: 250, borderRadius: 20,  resizeMode: 'stretch'}}
                                 source={movie.icon}/>
+                            </View>
                             </View>
                         ))}
                 </ScrollView>

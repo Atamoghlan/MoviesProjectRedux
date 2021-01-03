@@ -10,8 +10,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { persistStore, persistReducer } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 import { logger } from 'redux-logger';
-import { NavigationContainer } from "@react-navigation/native";
-import { MoviesMenu } from "./components/TabNavigator";
 
 const persistConfig = {
     key: 'root',
@@ -24,9 +22,7 @@ export const mypersistor = persistStore(mystore)
 const MyEntryPoint = () => (
     <Provider store={mystore}>
         <PersistGate loading={null} persistor={mypersistor}>
-            <NavigationContainer>
-                <MoviesMenu/>
-            </NavigationContainer>
+            <App/>
         </PersistGate>
     </Provider>
 )
