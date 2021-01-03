@@ -16,7 +16,7 @@ class App extends Component {
     
   }
   url = 'http://api.tvmaze.com/search/shows?q=' 
-  myDefaultSearch = 'super'
+  myDefaultSearch = 'batman'
  
   inputData = [];
   searchUrl = '';
@@ -70,7 +70,8 @@ class App extends Component {
     }
   render (){
     //const {data} = this.props.data
-    let icon = require("./images/popcorn.jpg");
+    let icon = require('./images/popcorn.jpg');
+    let heart = require('./images/heart.png');
     let name = '';
     let description = '';
     //console.log (data)
@@ -89,10 +90,18 @@ class App extends Component {
              name = item?.show?.name;
              description= item?.show?.summary;
               return (
-             <TouchableOpacity key={index} onPress={()=>this.workModal(item.show)}>      
+                <View>
                 <Text style={styles.text}>{item.show.name}</Text>
-                <Image style={{width:125,height:150,borderRadius: 15, margin: 9}} source={icon}/>
+             <TouchableOpacity key={index} 
+             onPress={()=>this.workModal(item.show)}>      
+                <Image style={{width:125,height:150,borderRadius: 15,margin: 9}} source={icon}/>
              </TouchableOpacity>
+             <TouchableOpacity style={{width: 45, height: 45, margin: 5, marginLeft: 50}}
+             onPress={() => this.props.favMovies(item.show)}>
+                  <Image style={{width:45, height:45}}
+                  source={heart}/>
+                </TouchableOpacity>
+             </View>
           )           
         })} 
           <CheckModal 
@@ -110,7 +119,7 @@ class App extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
       goToFetch: (url, search) =>  dispatch(fetchUrl(dispatch, url, search)),
-      func: () => dispatch(ClearList()), 
+      favMovies: (movie) => dispatch(favouriteList(movie)), 
       dispatch
 
   }
@@ -120,7 +129,8 @@ const mapStateToProps = state => {
     data: state.ReducerForSearch.data
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+const myApp = connect(mapStateToProps, mapDispatchToProps)(App);
+export default myApp;
 
 const styles=StyleSheet.create({
   container: {

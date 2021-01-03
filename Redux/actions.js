@@ -10,14 +10,14 @@ export const searchMovie = (data) => {
         }
     })
 }
-export const favouriteList = (icon, movieName, description) => {
+export const favouriteList = (movie) => {
     return ({
         type: 'Add_to_favourite_List',
         payload: {
-            movieId: ++movieId,
-            icon: icon,
-            movieName: movieName,
-            description: description
+            movieList: {
+                icon: movie.image?{uri: movie.image.medium}: require("../images/popcorn.jpg"),
+                name: movie.name
+            }
             
 
         }
