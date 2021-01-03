@@ -3,13 +3,19 @@ export const initialState = {
 }
 
 export const ReducerForFavourite = (state = initialState, action) => {
-    switch(action.type) {
-        
+    switch (action.type) {
+
         case 'Add_to_favourite_List':
-            return { ...state,
+            return {
+                ...state,
                 movieList: [...state.movieList, action.payload.movieList]
             }
-    default: 
-    return state;
-        }
+        case "ClearList":
+            return {
+                state,
+                movieList: []
+            }
+        default:
+            return state;
+    }
 }

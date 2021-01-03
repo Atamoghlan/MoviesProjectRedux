@@ -18,13 +18,18 @@ export const favouriteList = (movie) => {
                 icon: movie.image?{uri: movie.image.medium}: require("../images/popcorn.jpg"),
                 name: movie.name
             }
-            
-
         }
     })
 }
 
-
+export const ClearList = () => {
+    return ({
+    type: "ClearList",
+    payload: {
+        movieList: {
+        }
+    }
+})};
 
 export const fetchUrl = (dispatch, url, text) => {
     console.log('from fetch url=',url, text)
