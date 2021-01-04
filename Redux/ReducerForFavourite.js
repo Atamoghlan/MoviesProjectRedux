@@ -15,6 +15,11 @@ export const ReducerForFavourite = (state = initialState, action) => {
                 state,
                 movieList: []
             }
+        case 'DeleteMovie':
+            return{ 
+                state,
+                movieList: state.movieList.filter((item, index) => index !== action.payload)
+            }
         default:
             return state;
     }
