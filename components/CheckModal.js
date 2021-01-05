@@ -1,6 +1,5 @@
 import React from 'react';
 import { View ,Image, Text, TouchableOpacity, ScrollView, Modal, StyleSheet} from 'react-native';
-import { connect } from "react-redux";
 
 export const CheckModal = (props) => {
     const {icon, name, description, onPress, modalWindow} = props;
