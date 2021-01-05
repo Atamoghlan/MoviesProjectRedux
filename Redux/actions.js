@@ -22,7 +22,7 @@ export const favouriteList = (movie) => {
     })
 }
 
-export const ClearList = () => {
+export const clearList = () => {
     return ({
     type: "ClearList",
     payload: {
@@ -31,7 +31,7 @@ export const ClearList = () => {
     }
 })};
 
-export const DeleteMovie = (index) => {
+export const deleteMovie = (index) => {
     return ({
         type: "DeleteMovie",
         payload: index

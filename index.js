@@ -5,7 +5,7 @@ import {name as appName} from './app.json';
 import { createStore, applyMiddleware, compose}  from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import reducer from './Redux';
+import {reducer} from './Redux/store';
 import AsyncStorage from '@react-native-community/async-storage';
 import { persistStore, persistReducer } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
