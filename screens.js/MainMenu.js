@@ -76,14 +76,14 @@ class MainMenu extends Component {
     let description = '';
     //console.log (data)
     return (
-      <View style={{backgroundColor: "black"}}>
+      <View style={styles.mainView}>
         <ScrollView>
           <SearchMovie
           handledChangedText={this.handledChangedText}
           findMovie={this.findMovie}/>
-          <Text style={{backgroundColor: 'white', fontSize: 22, marginVertical: 10, color:'white', backgroundColor: 'black'}}>You are searching: {this.searchText} </Text>
+          <Text style={styles.searchingText}>You are searching: {myDefaultSearch} </Text>
           {/* {console.log(this.state.data)}, */}
-          <View style={{flexWrap: 'wrap', flexDirection: 'row', backgroundColor: "black"}}>
+          <View style={styles.mapView}>
         
          {this.props.data.map((item,index)=> {
              icon = item.show.image?{uri:item.show.image.medium}: require("../images/popcorn.jpg")
@@ -94,11 +94,11 @@ class MainMenu extends Component {
                 <Text style={styles.text}>{item.show.name}</Text>
              <TouchableOpacity key={index} 
              onPress={()=>this.workModal(item.show)}>      
-                <Image style={{width:125,height:150,borderRadius: 15,margin: 9}} source={icon}/>
+                <Image style={styles.icon} source={icon}/>
              </TouchableOpacity>
-             <TouchableOpacity style={{width: 45, height: 45, margin: 5, marginLeft: 50}}
+             <TouchableOpacity style={styles.heartTO}
              onPress={() => this.props.favMovies(item.show)}>
-                  <Image style={{width:45, height:45}}
+                  <Image style={styles.heartImage}
                   source={heart}/>
                 </TouchableOpacity>
              </View>
@@ -116,6 +116,26 @@ class MainMenu extends Component {
     )
   }
 }
+const styles=StyleSheet.create({
+  container: {
+    marginTop: 30
+  },
+  text: {
+    width:125, 
+    height: 60,
+    marginHorizontal: 9 ,
+    marginTop: 20,
+    fontSize: 25, 
+    color: 'white'
+  },
+  mainView: {backgroundColor: "black"},
+  searchingText: {backgroundColor: 'white', fontSize: 22, marginVertical: 10, color:'white', backgroundColor: 'black'},
+  mapView: {flexWrap: 'wrap', flexDirection: 'row', backgroundColor: "black"},
+  icon: {width:125,height:150,borderRadius: 15,margin: 9},
+  heartTO: {width: 45, height: 45, margin: 5, marginLeft: 50},
+  heartImage: {width:45, height:45}
+})
+
 const mapDispatchToProps = (dispatch) => {
   return {
       goToFetch: () =>  dispatch(fetchUrl()),
@@ -132,16 +152,3 @@ const mapStateToProps = state => {
 const myApp = connect(mapStateToProps, mapDispatchToProps)(MainMenu);
 export default myApp;
 
-const styles=StyleSheet.create({
-  container: {
-    marginTop: 30
-  },
-  text: {
-    width:125, 
-    height: 60,
-    marginHorizontal: 9 ,
-    marginTop: 20,
-    fontSize: 25, 
-    color: 'white'
-  }
-})
