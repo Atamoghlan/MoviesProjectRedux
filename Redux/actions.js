@@ -31,6 +31,13 @@ export const ClearList = () => {
     }
 })};
 
+export const DeleteMovie = (index) => {
+    return ({
+        type: "DeleteMovie",
+        payload: index
+    })
+}
+
 export const fetchUrl = (dispatch, url, text) => {
     console.log('from fetch url=',url, text)
     return async() => {

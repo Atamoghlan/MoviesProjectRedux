@@ -10,6 +10,11 @@ export const ReducerForFavourite = (state = initialState, action) => {
                 ...state,
                 movieList: [...state.movieList, action.payload.movieList]
             }
+        case 'DeleteMovie':
+            return{ 
+                state,
+                movieList: state.movieList.filter((item, index) => index !== action.payload)
+            }
         case "ClearList":
             return {
                 state,

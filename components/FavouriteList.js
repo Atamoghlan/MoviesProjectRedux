@@ -1,46 +1,68 @@
 import React, { Component } from "react";
-import { View, ScrollView, Text, Image, TouchableOpacity } from "react-native";
+import { View, ScrollView, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { connect } from "react-redux";
-import { ClearList } from "../Redux/actions";
+import { clearList, deleteMovie } from "../Redux/actions";
 
 class FavouriteList extends Component {
     render() {
         const list = this.props.list;
         movieId = 0;
-        clearIcon = require('../images/Clear.png')
+        clearIcon = require('../images/Clear.png');
+        delIcon = require('../images/del.png')
         return (
             <View>
                 <ScrollView>
+                <View
+                style={styles.mainView}>
                     <View>
                         <TouchableOpacity
                         onPress={() => this.props.clear()}>
                             <Image
-                                style={{ width: 125, height: 65, alignSelf: 'center', marginTop: 10 }}
+                                style={styles.clearBtn}
                                 source={clearIcon}
                                  />
                         </TouchableOpacity>
                     </View>
-                    {list.map((movie) => (
+                    {list.map((movie, index) => (
                         <View
                             key={++movieId}
-                            style={{
-                                flexWrap: 'wrap', flexDirection: "row", justifyContent: 'center',
-                                backgroundColor: "white"
-                            }}>
+                            style={styles.mapView}>
                             <View>
                                 <Text
-                                    style={{ width: 250, height: 45, fontSize: 30, color: 'black', marginTop: 15 }}>{movie.name}</Text>
+                                    style={styles.movieName}>{movie.name}</Text>
                                 <Image
-                                    style={{ width: 250, height: 250, borderRadius: 20, resizeMode: 'stretch' }}
+                                    style={styles.movieImage}
                                     source={movie.icon} />
                             </View>
+                            <TouchableOpacity
+                        onPress={() => this.props.deletemovie(index)}>
+                            <Image
+                                style={styles.deleteBtn}
+                                source={delIcon}
+                                 />
+                        </TouchableOpacity>
                         </View>
                     ))}
+                    </View>
                 </ScrollView>
             </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    mainView: {
+        alignItems: 'center'
+    },
+    clearBtn: { width: 125, height: 65, alignSelf: 'center', marginTop: 10 },
+    mapView: {
+        flexWrap: 'wrap', flexDirection: "column", justifyContent: 'center',
+        backgroundColor: "white"
+    },
+    movieName: {width: 250, height: 45, fontSize: 35, color: 'black', marginTop: 15 },
+    movieImage: { width: 250, height: 250, borderRadius: 20, resizeMode: 'stretch' },
+    deleteBtn: { width: 90, height: 75, alignSelf: 'center', margin: 10, resizeMode: 'stretch' },
+})
 
 const mapStateToProps = state => {
     return {
@@ -49,7 +71,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        clear: () =>  dispatch(ClearList()),
+        clear: () =>  dispatch(clearList()),
+        deletemovie: (index) => dispatch(deleteMovie(index)),
         dispatch
   
     }
