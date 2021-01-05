@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, ScrollView, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { connect } from "react-redux";
-import { ClearList, DeleteMovie } from "../Redux/actions";
+import { clearList, deleteMovie } from "../Redux/actions";
 
 class FavouriteList extends Component {
     render() {
@@ -70,8 +70,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        clear: () =>  dispatch(ClearList()),
-        deletemovie: (index) => dispatch(DeleteMovie(index)),
+        clear: () =>  dispatch(clearList()),
+        deletemovie: (index) => dispatch(deleteMovie(index)),
         dispatch
   
     }
