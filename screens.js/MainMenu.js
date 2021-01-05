@@ -5,6 +5,9 @@ import { SearchMovie } from "../components/SearchMovie";
 import { searchMovie, favouriteList, fetchUrl } from "../Redux/actions";
 import { connect } from "react-redux";
 
+export let url = 'http://api.tvmaze.com/search/shows?q=' 
+export let myDefaultSearch = 'batman'
+
 class MainMenu extends Component {
   constructor(props) {
     super(props)
@@ -15,8 +18,6 @@ class MainMenu extends Component {
     }
     
   }
-  url = 'http://api.tvmaze.com/search/shows?q=' 
-  myDefaultSearch = 'batman'
  
   inputData = [];
   searchUrl = '';
@@ -39,18 +40,17 @@ class MainMenu extends Component {
   }
 
   findMovie = () => {
-    this.props.goToFetch(this.url, this.searchText)
+    this.props.goToFetch()
   } 
   
   handledChangedText = (newText) =>{
-    this.searchText = newText
-    this.searchUrl = this.url + newText
+    myDefaultSearch = newText
+    this.searchUrl = url + newText
     this.componentDidUpdate()
     //console.log('handledChangedText')
   }
   componentDidMount = () => {
-    console.log('my url=', this.url, 'my search=', this.myDefaultSearch)
-    this.props.goToFetch(this.url, this.myDefaultSearch)
+    this.props.goToFetch()
   }
 
   
@@ -118,7 +118,7 @@ class MainMenu extends Component {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-      goToFetch: (url, search) =>  dispatch(fetchUrl(dispatch, url, search)),
+      goToFetch: () =>  dispatch(fetchUrl()),
       favMovies: (movie) => dispatch(favouriteList(movie)), 
       dispatch
 

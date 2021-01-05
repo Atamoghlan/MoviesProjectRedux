@@ -4,7 +4,6 @@ export const initialState = {
 
 export const ReducerForFavourite = (state = initialState, action) => {
     switch (action.type) {
-
         case 'Add_to_favourite_List':
             return {
                 ...state,
